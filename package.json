@@ -13,7 +13,7 @@
   "author": "Roger Gee",
   "license": "MIT",
   "dependencies": {
-    "uglify-js": "^3.4.9",
+    "uglify-js": "^3.10.4",
     "uglifycss": "0.0.29"
   }
 }
