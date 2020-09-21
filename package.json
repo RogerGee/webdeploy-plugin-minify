@@ -1,6 +1,6 @@
 {
-  "name": "@tccl/webdeploy-minify",
-  "version": "1.0.0",
+  "name": "@webdeploy/plugin-minify",
+  "version": "1.0.0-dev",
   "description": "Webdeploy minify build plugin",
   "main": "minify.js",
   "scripts": {
@@ -8,8 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://tccl-apps/git/webdeploy/minify.git"
+    "url": "https://github.com/RogerGee/webdeploy-plugin-minify.git"
   },
   "author": "Roger Gee",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "uglify-js": "^3.10.4",
+    "uglifycss": "0.0.29"
+  }
 }

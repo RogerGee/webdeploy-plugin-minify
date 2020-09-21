@@ -4,40 +4,40 @@ const uglifyjs = require("uglify-js");
 const uglifycss = require("uglifycss");
 
 module.exports = {
-    exec: (target,settings) => {
-        return new Promise((resolve,reject) => {
-            target.loadContent().then((code) => {
-                var matchJs = target.targetName.match(/(.*)\.js$/);
-                var matchCss = target.targetName.match(/(.*)\.css/);
+    async exec(target,settings) {
+        const code = await target.loadContent();
+        const matchJs = target.targetName.match(/(.*)\.js$/);
+        const matchCss = target.targetName.match(/(.*)\.css/);
 
-                if (matchJs) {
-                    var newName = matchJs[1] + ".min.js";
-                    var result = uglifyjs.minify(code);
+        let newName;
+        let newCode;
 
-                    if (result.error) {
-                        throw result.error;
-                    }
+        if (matchJs) {
+            const result = uglifyjs.minify(code);
 
-                    var newCode = result.code;
-                }
-                else if (matchCss) {
-                    var newName = matchCss[1] + ".min.css";
-                    var newCode = uglifycss.processString(code,{});
-                }
-                else {
-                    var newName = target.targetName;
-                    var newCode = code;
-                }
+            if (result.error) {
+                throw result.error;
+            }
 
-                if (typeof settings.rename !== 'undefined' && !settings.rename) {
-                    newName = target.targetName;
-                }
+            newName = matchJs[1] + ".min.js";
+            newCode = result.code;
+        }
+        else if (matchCss) {
+            newName = matchCss[1] + ".min.css";
+            newCode = uglifycss.processString(code,{});
+        }
+        else {
+            newName = target.targetName;
+            newCode = code;
+        }
 
-                var newTarget = target.makeOutputTarget(newName);
-                newTarget.stream.end(newCode);
+        if (typeof settings.rename !== 'undefined' && !settings.rename) {
+            newName = target.targetName;
+        }
 
-                resolve(newTarget);
-            }).catch(reject)
-        })
+        const newTarget = target.makeOutputTarget(newName);
+        newTarget.stream.end(newCode);
+
+        return newTarget;
     }
-}
+};
