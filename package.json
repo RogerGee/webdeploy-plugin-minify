@@ -1,6 +1,6 @@
 {
   "name": "@webdeploy/plugin-minify",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "description": "Webdeploy minify build plugin",
   "main": "minify.js",
   "scripts": {
